@@ -5,6 +5,7 @@ from routes.auth_routes import auth_bp
 from flasgger import Swagger
 from routes.patient_routes import patient_bp
 from routes.inpatient_routes import inpatient_bp
+from routes.appointment_routes import appointment_bp
 
 def create_app():
     app = Flask(__name__)
@@ -23,6 +24,8 @@ def create_app():
     app.register_blueprint(patient_bp, url_prefix='/api/v1/patients')
 
     app.register_blueprint(inpatient_bp, url_prefix='/api/v1/inpatient')
+
+    app.register_blueprint(appointment_bp, url_prefix='/api/v1/appointments')
 
     app.route('/')
     def index():
