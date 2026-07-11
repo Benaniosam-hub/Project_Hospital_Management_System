@@ -3,6 +3,7 @@ from config import Config
 from database.connection import close_db_connection
 from routes.auth_routes import auth_bp
 from flasgger import Swagger
+from routes.patient_routes import patient_bp
 
 def create_app():
     app = Flask(__name__)
@@ -17,6 +18,8 @@ def create_app():
     app.teardown_appcontext(close_db_connection)
 
     app.register_blueprint(auth_bp, url_prefix='/api/v1/auth')
+
+    app.register_blueprint(patient_bp, url_prefix='/api/v1/patients')
 
     app.route('/')
     def index():
