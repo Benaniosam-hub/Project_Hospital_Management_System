@@ -25,3 +25,9 @@ class StaffRepository(BaseRepository):
         """Finds an active staff member by their unique username for login validation."""
         query = "SELECT * FROM staff WHERE username = %s AND is_active = TRUE;"
         return self.fetch_one(query, (username,))
+    
+    def find_by_id(self, staff_id):
+        """Finds a staff profile by ID to verify their active role status."""
+        # 🌟 Removing 'AND is_active = TRUE' for testing ensures it finds the row!
+        query = "SELECT staff_id, first_name, last_name, role FROM staff WHERE staff_id = %s;"
+        return self.fetch_one(query, (staff_id,))

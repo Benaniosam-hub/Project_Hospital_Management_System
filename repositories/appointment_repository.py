@@ -35,7 +35,7 @@ class AppointmentRepository(BaseRepository):
             FROM appointments a
             JOIN staff s ON a.doctor_id = s.staff_id
             JOIN patients p ON a.patient_id = p.patient_id
-            WHERE a.doctor_id = %s
+            WHERE a.doctor_id = %s AND s.role = 'doctor'
             ORDER BY a.appointment_date ASC, a.appointment_time ASC;
         """
         return self.fetch_all(query, (doctor_id,))
