@@ -2,21 +2,6 @@
 
 A comprehensive RESTful API for managing hospital operations including patient management, inpatient services, appointments, and authentication.
 
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Prerequisites](#prerequisites)
-- [Installation & Configuration](#installation--configuration)
-- [Project Structure](#project-structure)
-- [Database Schema](#database-schema)
-- [API Endpoints](#api-endpoints)
-- [Authentication](#authentication)
-- [Running the Application](#running-the-application)
-- [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
-
 ---
 
 ## 🏥 Overview
