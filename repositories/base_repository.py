@@ -1,36 +1,40 @@
-from database.connection import get_db_connection, get_db_cursor
+from database.connection import db
 
 class BaseRepository:
-    def execute_query(self, query, params=None):
-        conn = get_db_connection()
-        cursor = get_db_cursor()
-        try:
-            cursor.execute(query, params)
-            conn.commit()
-            return cursor
-        except Exception as e:
-            conn.rollback()
-            raise e 
-        finally:
-            cursor.close()
+    def _format_query(self, query: str) -> str:
+        """
+        Helper to convert Flask/psycopg2 %s placeholders to asyncpg $1, $2 syntax.
+        If your queries are already written using $1, $2, this wont break them.
+        """
+        if "%s" in query:
+            parts = query.split("%s")
+            new_query = ""
+            for i, part in enumerate(parts[:-1]):
+                new_query += f"{part}${i+1}"
+            new_query += parts[-1]
+            return new_query
+        return query
+    
+    async def execute_query(self, query: str, params: tuple = None):
+        formatted_query = self._format_query(query)
+        params = params or ()
 
-    def fetch_all(self, query, params=None):
-        cursor = get_db_cursor()
-        conn = get_db_connection()
-        try:
-            cursor.execute(query, params)
-            conn.commit()
-            return cursor.fetchall()
-        finally:
-            cursor.close()
+        async with db.get_connection() as conn:
+            return await conn.execute(formatted_query, *params)
 
-    def fetch_one(self, query , params=None):
-        cursor = get_db_cursor()
-        conn = get_db_connection()
-        try:
-            cursor.execute(query, params)
-            conn.commit()
-            return cursor.fetchone()
+    async def fetch_all(self, query: str, params: tuple = None) -> list:
+        formatted_query = self._format_query(query)
+        params = params or ()
+
+        async with db.get_connection() as conn:
+            records = await conn.fetchrow(formatted_query, *params)
+            return [dict(record) for record in records]
+
+    async def fetch_one(self, query: str, params: tuple = None) -> dict:
+        formatted_query = self._format_query(query)
+        params = params or ()
+
+        async with db.get_connection() as conn:
+            record = await conn.fetchrow(formatted_query, *params)
+            return dict(record) if record else None
         
-        finally:
-            cursor.close()
