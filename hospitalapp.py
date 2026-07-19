@@ -1,37 +1,30 @@
-from flask import Flask
-from config import Config
+from fastapi import FastAPI
+from contextlib import asynccontextmanager
 from database.connection import close_db_connection
 from routes.auth_routes import auth_bp
-from flasgger import Swagger
 from routes.patient_routes import patient_bp
 from routes.inpatient_routes import inpatient_bp
 from routes.appointment_routes import appointment_bp
 
-def create_app():
-    app = Flask(__name__)
-    app.config.from_object(Config)
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    yield
+    close_db_connection
 
-    app.config['SWAGGER'] = {
-        'title': 'Hospital Management System API',
-        'uiversion': 3
-    }
-    Swagger(app)
+app = FastAPI(
+    title= "Hospital Management System API",
+    version="1.0.0"
+) 
 
-    app.teardown_appcontext(close_db_connection)
+app.include_router(auth_bp, url_prefix='/api/v1/auth')
+app.include_router(patient_bp, url_prefix='/api/v1/patients')
+app.include_router(inpatient_bp, url_prefix='/api/v1/inpatient')
+app.include_router(appointment_bp, url_prefix='/api/v1/appointments')
 
-    app.register_blueprint(auth_bp, url_prefix='/api/v1/auth')
 
-    app.register_blueprint(patient_bp, url_prefix='/api/v1/patients')
+@app.get("/")
+async def index():
+    return{"status": "success",
+           "message": "HMS API Live. Go to /docs for Swagger documentation."
+           }, 200
 
-    app.register_blueprint(inpatient_bp, url_prefix='/api/v1/inpatient')
-
-    app.register_blueprint(appointment_bp, url_prefix='/api/v1/appointments')
-
-    app.route('/')
-    def index():
-        return{"status": "success", "message": "HMS API Live. Go to /apidocs/ for Swagger documentation."}, 200
-    return app
-
-if __name__ == '__main__':
-    app = create_app()
-    app.run(debug=True, port=5000) 
