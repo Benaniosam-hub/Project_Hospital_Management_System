@@ -26,4 +26,3 @@ async def index():
     return{"status": "success",
            "message": "HMS API Live. Go to /docs for Swagger documentation."
            }, 200
-
