@@ -16,11 +16,10 @@ app = FastAPI(
     version="1.0.0"
 ) 
 
-app.include_router(auth_bp, url_prefix='/api/v1/auth')
-app.include_router(patient_bp, url_prefix='/api/v1/patients')
-app.include_router(inpatient_bp, url_prefix='/api/v1/inpatient')
-app.include_router(appointment_bp, url_prefix='/api/v1/appointments')
-
+app.include_router(auth_bp, prefix='/api/v1/auth')
+app.include_router(patient_bp, prefix='/api/v1/patients')
+app.include_router(inpatient_bp, prefix='/api/v1/inpatient')
+app.include_router(appointment_bp, prefix='/api/v1/appointments')
 
 @app.get("/")
 async def index():
