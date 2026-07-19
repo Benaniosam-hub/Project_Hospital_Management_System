@@ -1,98 +1,40 @@
-from flask import request, jsonify
+from fastapi import HTTPException
+from pydantic import BaseModel
 from services.inpatient_services import InpatientService
 
 inpatient_service = InpatientService()
 
-def add_room_controller():
-    """
-    Add a New Hospital Room
-    ---
-    tags:
-      - Inpatient Facility
-    parameters:
-      - name: body
-        in: body
-        required: true
-        schema:
-          required:
-            - room_number
-            - type
-            - total_beds
-            - price_per_day
-          properties:
-            room_number:
-              type: string
-              example: "101-A"
-            type:
-              type: string
-              enum: ['General', 'Semi-Private', 'Private', 'ICU']
-              example: "General"
-            total_beds:
-              type: integer
-              example: 4
-            price_per_day:
-              type: number
-              example: 150.00
-    responses:
-      201:
-        description: Room provisioned successfully
-    """
-    data = request.get_json()
-    required = ['room_number', 'type', 'total_beds', 'price_per_day']
-    if not data or not all(k in data for k in required):
-        return jsonify({"error": "Missing essential room structural keys"}), 400
-        
-    result, status_code = inpatient_service.add_room(data)
-    return jsonify(result), status_code
+class RoomCreateSchema(BaseModel):
+    room_number: str
+    type: str       
+    total_beds: int
+    price_per_day: float
 
-def get_rooms_controller():
-    """
-    Get All Rooms Directory Status
-    ---
-    tags:
-      - Inpatient Facility
-    responses:
-      200:
-        description: Returns status overview list of all rooms
-    """
-    result, status_code = inpatient_service.list_rooms()
-    return jsonify(result), status_code
+class PatientAdmitSchema(BaseModel):
+    patient_id: int
+    room_id: int
+    reason: str
+async def add_room_controller(room_data: RoomCreateSchema):
+    data = room_data.model_dump()
+    result, status_code = await inpatient_service.add_room(data)
 
-def admit_patient_controller():
-    """
-    Admit a Patient to a Room
-    ---
-    tags:
-      - Inpatient Facility
-    parameters:
-      - name: body
-        in: body
-        required: true
-        schema:
-          required:
-            - patient_id
-            - room_id
-            - reason
-          properties:
-            patient_id:
-              type: integer
-              example: 1
-            room_id:
-              type: integer
-              example: 1
-            reason:
-              type: string
-              example: "Recovering from appendectomy surgery observations"
-    responses:
-      201:
-        description: Patient checked in and bed allocated successfully
-      400:
-        description: Selected room is full or inputs invalid
-    """
-    data = request.get_json()
-    required = ['patient_id', 'room_id', 'reason']
-    if not data or not all(k in data for k in required):
-        return jsonify({"error": "Missing essential admission details"}), 400
+    if status_code >= 400:
+        raise HTTPException(status_code=status_code, detail=result.get("error", "Failed to add room"))
+    return result
+
+async def get_rooms_controller():
+    result, status_code = await inpatient_service.list_rooms()
+    
+    if status_code >= 400:
+        raise HTTPException(status_code=status_code, detail=result.get("error", "Failed to retrieve rooms"))
         
-    result, status_code = inpatient_service.admit_patient(data)
-    return jsonify(result), status_code
+    return result
+
+async def admit_patient_controller(admission_data: PatientAdmitSchema):
+    data = admission_data.model_dump()
+    result, status_code = await inpatient_service.admit_patient(data)
+    
+    if status_code >= 400:
+        raise HTTPException(status_code=status_code, detail=result.get("error", "Failed to admit patient"))
+        
+    return result
