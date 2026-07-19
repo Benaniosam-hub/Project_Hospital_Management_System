@@ -8,12 +8,15 @@ from routes.appointment_routes import appointment_bp
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+
     yield
-    close_db_connection
+
+    close_db_connection()
 
 app = FastAPI(
     title= "Hospital Management System API",
-    version="1.0.0"
+    version="1.0.0",
+    lifespan=lifespan
 ) 
 
 app.include_router(auth_bp, prefix='/api/v1/auth')
@@ -23,7 +26,8 @@ app.include_router(appointment_bp, prefix='/api/v1/appointments')
 
 @app.get("/")
 async def index():
-    return{"status": "success",
-           "message": "HMS API Live. Go to /docs for Swagger documentation."
-           }, 200
+    return{
+        "status": "success",
+        "message": "HMS API Live. Go to /docs for Swagger documentation."
+    }, 200
 
