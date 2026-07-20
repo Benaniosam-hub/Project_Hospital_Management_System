@@ -1,18 +1,20 @@
 # services/auth_services.py
+import os
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import current_app
 import jwt
 import datetime
 from repositories.staff_repository import StaffRepository
+
+JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'your-default-secret-key')
 
 class AuthService:
     def __init__(self):
         self.staff_repo = StaffRepository()
 
-    def register_user(self, data):
+    async def register_user(self, data):
         """Validates duplication rules, hashes passwords, and creates a user record."""
         # Check if username already exists
-        existing_user = self.staff_repo.find_by_username(data['username'])
+        existing_user = await self.staff_repo.find_by_username(data['username'])
         if existing_user:
             return {"error": "Username is already registered"}, 400
 
@@ -29,12 +31,12 @@ class AuthService:
             "specialization": data.get('specialization')
         }
 
-        new_user = self.staff_repo.create_staff(staff_payload)
+        new_user = await self.staff_repo.create_staff(staff_payload)
         return {"status": "success", "message": "Staff registered successfully", "data": new_user}, 201
 
-    def login_user(self, username, password):
+    async def login_user(self, username, password):
         """Verifies credentials and issues a secure JWT access token."""
-        user = self.staff_repo.find_by_username(username)
+        user = await self.staff_repo.find_by_username(username)
         if not user or not check_password_hash(user['password'], password):
             return {"error": "Invalid username or password credentials"}, 401
 
@@ -42,10 +44,10 @@ class AuthService:
         token_payload = {
             "staff_id": user['staff_id'],
             "role": user['role'],
-            "exp": datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(seconds=int(current_app.config['JWT_ACCESS_TOKEN_EXPIRES']))
+            "exp": datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=24)
         }
         
-        token = jwt.encode(token_payload, current_app.config['JWT_SECRET_KEY'], algorithm="HS256")
+        token = jwt.encode(token_payload, JWT_SECRET_KEY, algorithm="HS256")
         
         return {
             "status": "success",

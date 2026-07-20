@@ -6,12 +6,12 @@ class AppointmentService:
         self.appointment_repo = AppointmentRepository()
         self.staff_repo = StaffRepository()
 
-    def create_appointment(self, data):
+    async def create_appointment(self, data):
         """Dispatches appointment scheduling payloads after validating the physician's role."""
         doctor_id = data.get('doctor_id')
         
         # 1. Fetch the staff record to verify who this ID belongs to
-        staff_member = self.staff_repo.find_by_id(doctor_id)
+        staff_member = await self.staff_repo.find_by_id(doctor_id)
         
         # 2. If the staff ID does not exist at all, reject the booking with a 404
         if not staff_member:
@@ -28,17 +28,17 @@ class AppointmentService:
             }, 400
 
         # 4. If all validations clear, dispatch to database
-        new_appointment = self.appointment_repo.schedule_appointment(data)
+        new_appointment = await self.appointment_repo.schedule_appointment(data)
         return {
             "status": "success", 
             "message": "Appointment scheduled successfully", 
             "data": new_appointment
         }, 201
 
-    def list_doctor_schedule(self, doctor_id):
+    async def list_doctor_schedule(self, doctor_id):
         """Fetches the structured upcoming line-up list for a doctor after validation."""
         # 1. Fetch the staff record using the staff repo you just initialized on line 7
-        staff_member = self.staff_repo.find_by_id(doctor_id)
+        staff_member = await self.staff_repo.find_by_id(doctor_id)
         
         # 2. If no record exists at all in the staff table, return a 404 error
         if not staff_member:
@@ -55,7 +55,7 @@ class AppointmentService:
             }, 400
 
         # 4. If they pass the check, fetch and return the schedule matrix normally
-        schedule = self.appointment_repo.get_doctor_appointments(doctor_id)
+        schedule = await self.appointment_repo.get_doctor_appointments(doctor_id)
         return {
             "status": "success", 
             "doctor_id": doctor_id, 
