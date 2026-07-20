@@ -7,7 +7,7 @@ from controllers.inpatient_controller import (
     PatientAdmitSchema
 )
 
-inpatient_bp = APIRouter()
+inpatient_bp = APIRouter(prefix="inpatient", tags=["Inpatient Management"])
 
 @inpatient_bp.post('/rooms', status_code=201)
 async def add_room(room_data: RoomCreateSchema):
