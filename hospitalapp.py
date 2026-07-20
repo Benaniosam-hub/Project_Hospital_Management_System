@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
-from database.connection import close_db_connection
+from database.connection import db
 from routes.auth_routes import auth_bp
 from routes.patient_routes import patient_bp
 from routes.inpatient_routes import inpatient_bp
@@ -8,10 +8,10 @@ from routes.appointment_routes import appointment_bp
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    
+    await db.connect()
     yield
 
-    await close_db_connection()
+    await db.disconnect()
 
 app = FastAPI(
     title= "Hospital Management System API",
