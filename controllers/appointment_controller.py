@@ -17,7 +17,7 @@ async def book_appointment_controller(appointment_date: AppointmentCreateSchema)
     
     data = appointment_date.model_dump()
 
-    result,status_code = await appointment_date.create_appointment(data)
+    result,status_code = await appointment_service.create_appointment(data)
 
     if status_code >= 400:
         raise HTTPException(status_code=status_code, detail=result.get("error", "failed to book appointment"))

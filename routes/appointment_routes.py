@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from controllers.appointment_controller import book_appointment_controller, get_doctor_schedule_controller,AppointmentCreateSchema
 
-appointment_bp = APIRouter()
+appointment_bp = APIRouter(prefix="/appointments", tags=["Appointments"])
 
 @appointment_bp.post('/book', status_code=201)
 async def book_appointment(appointment_data: AppointmentCreateSchema):
