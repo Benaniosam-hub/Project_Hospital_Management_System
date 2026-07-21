@@ -1,4 +1,3 @@
-# repositories/inpatient_repository.py
 from repositories.base_repository import BaseRepository
 
 class InpatientRepository(BaseRepository):
