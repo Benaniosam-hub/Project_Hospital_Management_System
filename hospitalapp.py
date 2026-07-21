@@ -9,6 +9,7 @@ from routes.appointment_routes import appointment_bp
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     await db.connect()
+    
     yield
 
     await db.disconnect()
