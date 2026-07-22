@@ -1,5 +1,6 @@
 from fastapi import APIRouter
 from controllers.patient_controller import register_patient_controller, get_patients_controller, PatientRegisterSchema
+from schemas.patient_schemas import PatientRegisterSchema
 
 patient_bp = APIRouter(prefix="/patients", tags=["Patients"])
 

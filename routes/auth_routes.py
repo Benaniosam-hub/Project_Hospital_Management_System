@@ -1,12 +1,15 @@
 from fastapi import APIRouter
-from controllers.auth_controller import register_controller, login_controller, StaffLoginSchema, StaffRegisterSchema
+from controllers.auth_controller import login_controller, register_controller
+from schemas.auth_schemas import StaffLoginSchema, StaffRegisterSchema
 
 auth_bp = APIRouter(prefix="/auth", tags=["Authentication"])
 
-@auth_bp.post('/register', status_code=201)
-async def register(register_data: StaffRegisterSchema):
-    return await register_controller(register_data)
 
-@auth_bp.post('/login')
+@auth_bp.post("/register", status_code=201)
+async def register(register_data: StaffRegisterSchema):
+  return await register_controller(register_data)
+
+
+@auth_bp.post("/login")
 async def login(login_data: StaffLoginSchema):
-    return await login_controller(login_data) 
+  return await login_controller(login_data)
