@@ -21,7 +21,7 @@ class AppointmentRepository(BaseRepository):
         return await self.fetch_one(query, params)
 
     async def get_doctor_appointments(self, doctor_id):
-        """Retrieves appointments by matching doctor_id and joining the staff table."""
+        """Retrieves appointments by matching doctor_id and joining staff/patients tables."""
         query = """
             SELECT a.appointment_id,
                    a.appointment_date::text,
@@ -35,7 +35,7 @@ class AppointmentRepository(BaseRepository):
             FROM appointments a
             JOIN staff s ON a.doctor_id = s.staff_id
             JOIN patients p ON a.patient_id = p.patient_id
-            WHERE a.doctor_id = %s AND s.role = 'doctor'
+            WHERE a.doctor_id = $1
             ORDER BY a.appointment_date ASC, a.appointment_time ASC;
         """
         return await self.fetch_all(query, (doctor_id,))
