@@ -27,7 +27,7 @@ class BaseRepository:
         params = params or ()
 
         async with db.get_connection() as conn:
-            records = await conn.fetchrow(formatted_query, *params)
+            records = await conn.fetch(formatted_query, *params)
             return [dict(record) for record in records]
 
     async def fetch_one(self, query: str, params: tuple = None) -> dict:

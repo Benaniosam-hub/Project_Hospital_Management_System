@@ -24,10 +24,11 @@ async def book_appointment_controller(appointment_date: AppointmentCreateSchema)
     return result
 
 async def get_doctor_schedule_controller(doctor_id: int):
-    
     result, status_code = await appointment_service.list_doctor_schedule(doctor_id)
 
     if status_code >= 400:
-        raise HTTPException(status_code=status_code, detail=result.get("error", "Doctor schedule not found"))
-    
+        # Check if result is a dictionary before calling .get()
+        error_msg = result.get("error", "Doctor schedule not found") if isinstance(result, dict) else "Doctor schedule not found"
+        raise HTTPException(status_code=status_code, detail=error_msg)
+
     return result
