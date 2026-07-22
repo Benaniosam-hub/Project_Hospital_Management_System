@@ -237,7 +237,7 @@ locust -f locustfile.py --host=http://localhost:8000
 
 # Command-line mode (no UI)
 locust -f locustfile.py --host=http://localhost:8000 \
-    --users 100 --spawn-rate 10 --run-time 5m --headless
+    --users 50 --spawn-rate 5 --run-time 5m --headless
 ```
 
 ### Load Test Scenarios
@@ -276,14 +276,9 @@ class HospitalUser(HttpUser):
 
 ### Sample Load Test Results
 
-```
-Locust Results (100 concurrent users, 5 minutes):
-- Total Requests: 45,000
-- Response Time: avg 120ms, p95 250ms, p99 500ms
-- Throughput: 150 req/sec
-- Failure Rate: 0.2%
-- Peak Concurrent Users Handled: 500+
-```
+<img width="1920" height="1080" alt="lo 1" src="https://github.com/user-attachments/assets/42678087-9604-42de-880a-6882f2933ed8" />
+<img width="1920" height="1080" alt="lo 2" src="https://github.com/user-attachments/assets/a7e68e8d-5f43-4a46-aad2-17194751856a" />
+<img width="707" height="589" alt="lo 3" src="https://github.com/user-attachments/assets/7bb37eac-c37d-42da-8070-26b2ca7c96e8" />
 
 ---
 
@@ -435,6 +430,9 @@ python -m uvicorn hospitalapp:app --host 0.0.0.0 --port 8000 --workers 4 --timeo
    - 🔑 Built-in JWT authorization
    - 🧪 **Try it out** button for live testing
    - ⚡ Real-time request/response visualization
+4. Screenshots:
+   
+   <img width="1558" height="975" alt="swagger" src="https://github.com/user-attachments/assets/f8d5cfb6-7623-4b65-92f7-178f768c003c" />
 
 ### Testing Authenticated Endpoints
 
