@@ -74,7 +74,7 @@ CREATE TABLE admissions (
     CONSTRAINT fk_admission_patient FOREIGN KEY (patient_id) REFERENCES patients(patient_id) ON DELETE CASCADE,
     CONSTRAINT fk_admission_room FOREIGN KEY (room_id) REFERENCES rooms(room_id) ON DELETE SET NULL,
     CONSTRAINT fk_admission_doctor FOREIGN KEY (doctor_id) REFERENCES staff(staff_id) ON DELETE SET NULL
-);
+); 
 
 -- Admission Indexes
 CREATE INDEX IF NOT EXISTS idx_admissions_patient_id ON admissions (patient_id);
