@@ -1,651 +1,351 @@
-# 🏥 Hospital Management System - High-Concurrency Edition with Async/Await & Load Testing
+# 🏥 Hospital Management System API
 
-> **Enterprise-Grade Hospital Management API** - Built with FastAPI's async architecture for ultra-high concurrency, tested with Locust for performance validation, and interactive Swagger UI for seeding development and QA workflows.
+<p align="center">
 
-A production-ready, asynchronous RESTful API for managing comprehensive hospital operations including patient management, inpatient services, appointments, and JWT authentication. Engineered for modern, cloud-ready deployments and designed as a learning playground to implement enterprise-grade concepts.
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![AsyncIO](https://img.shields.io/badge/Async-High%20Concurrency-success?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-Authentication-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+![Pydantic](https://img.shields.io/badge/Pydantic-Validation-E92063?style=for-the-badge)
+![Swagger](https://img.shields.io/badge/Swagger-OpenAPI-85EA2D?style=for-the-badge&logo=swagger&logoColor=black)
 
----
+</p>
 
-## ℹ️ About this Project
-
-This Hospital Management System (HMS) is a learning and experimentation project where I am applying and validating several enterprise-level concepts and best practices:
-
-- High concurrency handling — end-to-end async/await architecture, connection pooling, and load-tested with Locust.
-- Enterprise security practices — JWT-based authentication, role-based authorization, environment-driven secrets management, and secure error handling.
-- Strict schema validation — Pydantic models and request/response validation to ensure data integrity across services.
-- Database optimization — async SQLAlchemy usage, connection pooling, and schema/indexing patterns designed for performance at scale.
-- Cloud-native architecture — container-friendly configuration, multi-worker ASGI deployment patterns, and readiness for horizontal scaling behind a load balancer.
-
-This README keeps the original sample screenshots and load test artifacts intact — they demonstrate live runs and UI interactions used during development and testing.
+<p align="center">
+Production-oriented Hospital Management System REST API built with <b>FastAPI</b>, <b>PostgreSQL</b>, and <b>Async Python</b>.
+</p>
 
 ---
 
-## 🚀 What's New: High-Concurrency & Async Architecture
+# 📖 Overview
 
-This project has been **completely redesigned** to handle high-concurrency scenarios with:
+This project demonstrates modern backend development practices using FastAPI and PostgreSQL. It follows a layered architecture with clear separation of responsibilities, secure authentication, asynchronous request handling, and modular code organization.
 
-- ⚡ **Fully Asynchronous Architecture** - Every endpoint uses `async/await` for non-blocking operations
-- 🔄 **High-Concurrency Support** - Handle thousands of simultaneous requests efficiently
-- 📊 **Locust Load Testing** - Built-in performance testing suite to validate concurrency limits
-- 🎯 **FastAPI + Uvicorn** - Production-grade ASGI stack optimized for concurrent request handling
-- 🔌 **Connection Pooling** - PostgreSQL connection pooling for resource efficiency
-- 📈 **Real-time Performance Metrics** - Monitor response times, throughput, and concurrent user capacity
+## Highlights
 
----
-
-## 🎯 Key Features
-
-### Core Functionality
-- **Patient Management** - Register, update, and manage patient information with async operations
-- **Inpatient Services** - Manage hospital admissions and inpatient records concurrently
-- **Appointments** - Schedule and manage medical appointments with non-blocking I/O
-- **Authentication** - Secure JWT-based authentication for multi-user environments
-- **Interactive API Documentation** - Built-in Swagger UI for real-time API exploration
-
-### Performance & Scalability
-- ⚡ **FastAPI Framework** - 3x faster than Flask with native async support
-- 🔄 **Async/Await Everything** - Non-blocking database queries and I/O operations
-- 📊 **High Concurrency Model** - Efficiently handle 100s-1000s concurrent requests
-- 🎯 **Locust Integration** - Built-in load testing to simulate realistic traffic patterns
-- 🔌 **Connection Pooling** - Optimized database connections for high-traffic scenarios
-- 📈 **Horizontal Scalability** - Multi-worker Uvicorn deployment ready
-
-### Enterprise Features
-- ✅ JWT-based authentication & role-based authorization
-- ✅ PostgreSQL database with async SQLAlchemy
-- ✅ Automatic OpenAPI/Swagger documentation
-- ✅ Comprehensive error handling and validation
-- ✅ Environment-based configuration
-- ✅ Request/Response validation with Pydantic models
-- ✅ CORS support for cross-origin requests
+* Async FastAPI REST API
+* JWT Authentication
+* Role-Based Access Control (RBAC)
+* BCrypt Password Hashing
+* Pydantic Request Validation
+* PostgreSQL Database
+* Async Database Connection Pooling
+* Docker Support
+* Swagger API Documentation
 
 ---
 
-## 🛠 Tech Stack
+# ✨ Features
 
-| Component | Technology | Purpose |
-|-----------|-----------|---------|
-| **Backend Framework** | FastAPI 0.95+ | Async web framework |
-| **Async Server** | Uvicorn (ASGI) | Production-grade async application server |
-| **Database** | PostgreSQL 10+ | Relational data storage |
-| **ORM** | SQLAlchemy (async) | Async database ORM |
-| **Authentication** | JWT (JSON Web Tokens) | Secure token-based auth |
-| **API Documentation** | Swagger UI / OpenAPI 3.0 | Interactive API docs |
-| **Load Testing** | Locust | Concurrent user simulation |
-| **Language** | Python 3.8+ | High-performance async runtime |
-| **Validation** | Pydantic | Type-safe request/response models |
-| **Environment** | python-dotenv | Configuration management |
+### Authentication
+
+* JWT Authentication
+* BCrypt Password Hashing
+* Protected API Endpoints
+
+### User Roles
+
+* Admin
+* Doctor
+* Nurse
+* Receptionist
+* Pharmacist
+
+### Patient Management
+
+* Register Patients
+* Update Patient Details
+* View Patient Records
+
+### Appointment Management
+
+* Schedule Appointments
+* Manage Appointment Status
+* Assign Doctors
+
+### Admission Management
+
+* Admit Patients
+* Allocate Rooms
+* Discharge Patients
+
+### Medical Records
+
+* Store Medical History
+* View Patient Records
 
 ---
 
-## 📦 Prerequisites
+# 🏗 Architecture
 
-- **Python 3.8+**
-- **PostgreSQL 10+**
-- **pip** (Python package manager)
-- **Uvicorn** (ASGI server for async execution)
-- **Locust** (for load testing)
+```
+Client
+   │
+   ▼
+FastAPI Routes
+   │
+   ▼
+Controllers
+   │
+   ▼
+Services
+   │
+   ▼
+Repositories
+   │
+   ▼
+PostgreSQL
+```
+
+The project follows a layered architecture where each layer has a single responsibility, making the codebase easier to maintain and extend.
 
 ---
 
-## 🚀 Installation & Configuration
+# 📂 Project Structure
 
-### 1. Clone & Setup
+```text
+Hospital_Management_System/
+│
+├── controllers/
+├── routes/
+├── services/
+├── repositories/
+├── schemas/
+├── middleware/
+├── database/
+├── core/
+├── hospitalapp.py
+├── Dockerfile
+├── docker-compose.yml
+└── requirements.txt
+```
+
+---
+
+# ⚙ Technology Stack
+
+| Category         | Technology  |
+| ---------------- | ----------- |
+| Language         | Python 3.11 |
+| Framework        | FastAPI     |
+| Database         | PostgreSQL  |
+| Database Driver  | asyncpg     |
+| Validation       | Pydantic    |
+| Authentication   | JWT         |
+| Password Hashing | BCrypt      |
+| Containerization | Docker      |
+
+---
+
+# 🔐 Security
+
+* JWT Authentication
+* BCrypt Password Hashing
+* Role-Based Authorization
+* Environment Variable Configuration
+* Pydantic Input Validation
+* Parameterized Database Queries
+
+---
+
+# ⚡ Asynchronous Performance
+
+The application uses asynchronous programming to improve responsiveness and efficiently handle concurrent requests.
+
+Features include:
+
+* Async FastAPI Endpoints
+* Async PostgreSQL Driver (`asyncpg`)
+* Database Connection Pooling
+* Non-blocking Database Operations
+
+---
+
+# 🧪 Load Testing
+
+The application was tested using **Locust** to evaluate API performance under concurrent workloads.
+
+The load test measures:
+
+* Concurrent Users
+* Requests Per Second (RPS)
+* Response Time
+* Failure Rate
+* Overall API Throughput
+
+---
+
+# 🗄 Database
+
+The project uses PostgreSQL with a normalized relational schema.
+
+Main entities include:
+
+* Staff
+* Patients
+* Appointments
+* Rooms
+* Admissions
+* Medical Records
+
+Database design includes:
+
+* Foreign Key Constraints
+* Indexed Relationships
+* Data Integrity
+
+---
+
+# 📸 Project Screenshots
+
+## ⚡ Locust Load Testing
+
+<p align="center">
+<img src="https://github.com/user-attachments/assets/42678087-9604-42de-880a-6882f2933ed8" width="900">
+</p>
+
+Locust was used to simulate concurrent users and monitor application performance under load.
+
+---
+
+## 📊 Performance Statistics
+
+<p align="center">
+<img src="https://github.com/user-attachments/assets/a7e68e8d-5f43-4a46-aad2-17194751856a" width="900">
+</p>
+
+Performance statistics include request throughput, response times, concurrent users, and failure rates.
+
+---
+
+## 🗄 Database Schema
+
+<p align="center">
+<img src="https://github.com/user-attachments/assets/7bb37eac-c37d-42da-8070-26b2ca7c96e8" width="650">
+</p>
+
+Relational database schema showing the relationships between hospital entities.
+
+---
+
+## 📖 Swagger API Documentation
+
+<p align="center">
+<img src="https://github.com/user-attachments/assets/f8d5cfb6-7623-4b65-92f7-178f768c003c" width="900">
+</p>
+
+Interactive API documentation generated automatically by FastAPI.
+
+---
+
+## 🐳 Docker Compose - Running Containers
+
+<p align="center">
+<img width="1456" height="998" alt="Screenshot 2026-07-31 at 10 54 46 AM" src="https://github.com/user-attachments/assets/369e9a4f-2ad9-4801-8bf8-d62641e2a26d" />
+</p>
+
+**FastAPI** and **PostgreSQL** containers managed by Docker Compose.
+
+---
+
+## 📋 Docker Container Logs
+
+<p align="center">
+<img width="1456" height="998" alt="Screenshot 2026-07-31 at 10 54 39 AM" src="https://github.com/user-attachments/assets/da2d1e82-6af9-47bd-8ef0-945b3b4f8b22" />
+</p>
+
+Container logs confirmation.
+
+---
+
+## 💻 Docker Compose Terminal Logs
+
+<p align="center">
+<img width="662" height="448" alt="Screenshot 2026-07-31 at 10 38 23 AM" src="https://github.com/user-attachments/assets/8b84f6f8-8080-4604-aad3-fa693761875f" />
+</p>
+
+`docker compose logs` showing successful service startup.
+
+# 🚀 Running the Project
+
+Clone the repository
 
 ```bash
 git clone https://github.com/Benaniosam-hub/Project_Hospital_Management_System.git
-cd Project_Hospital_Management_System
-
-# Create virtual environment
-python -m venv venv
-
-# On Windows
-venv\Scripts\activate
-
-# On macOS/Linux
-source venv/bin/activate
-
-# Install dependencies
-pip install -r requirements.txt
 ```
 
-### 2. Create Database
+Move into the project
 
 ```bash
-createdb hospital_db
+cd Project_Hospital_Management_System
 ```
 
-### 3. Configure Environment Variables
+Run with Docker
 
-Create a `.env` file in the root directory:
+```bash
+docker compose up --build
+```
+
+Application
+
+```
+http://localhost:8000
+```
+
+Swagger UI
+
+```
+http://localhost:8000/docs
+```
+
+ReDoc
+
+```
+http://localhost:8000/redoc
+```
+
+---
+
+# ⚙ Environment Variables
+
+Create a `.env` file.
 
 ```env
-# Secret Keys
-SECRET_KEY=your_secret_key_here
-JWT_SECRET_KEY=your_jwt_secret_key_here
+DB_HOST=
+DB_PORT=
+DB_NAME=
+DB_USER=
+DB_PASSWORD=
 
-# Database Configuration
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=hospital_db
-DB_USER=postgres
-DB_PASSWORD=your_db_password
-
-# FastAPI Configuration
-DEBUG=True
-HOST=127.0.0.1
-PORT=8000
-WORKERS=4
+JWT_SECRET_KEY=
 ```
 
 ---
 
-## 📁 Project Structure
+# 📚 What I Learned
 
-```
-Project_Hospital_Management_System/
-├── hospitalapp.py                # FastAPI application entry point
-├── config.py                     # Configuration settings
-├── locustfile.py                 # Locust load testing suite
-├── requirements.txt              # Project dependencies
-├── .env                          # Environment variables
-│
-├── routes/                       # API routes layer (async endpoints)
-│   ├── auth_routes.py           # Authentication endpoints
-│   ��── patient_routes.py        # Patient management endpoints
-│   ├── inpatient_routes.py      # Inpatient service endpoints
-│   └── appointment_routes.py    # Appointment management endpoints
-│
-├── controllers/                  # Business logic layer
-│   ├── auth_controller.py
-│   ├── patient_controller.py
-│   ├── inpatient_controller.py
-│   └── appointment_controller.py
-│
-├── services/                     # Business operations (async-ready)
-│   ├── auth_service.py
-│   ├── patient_service.py
-│   ├── inpatient_service.py
-│   └── appointment_service.py
-│
-├── repositories/                 # Data access layer (async database ops)
-│   ├── auth_repository.py
-│   ├── patient_repository.py
-│   ├── inpatient_repository.py
-│   └── appointment_repository.py
-│
-└── database/                     # Database configuration
-    ├── connection.py            # Async database connection pool
-    ├── models.py                # SQLAlchemy ORM models
-    └── session.py               # Database session management
-```
+* FastAPI Development
+* REST API Design
+* Async Programming
+* PostgreSQL
+* JWT Authentication
+* RBAC
+* Repository Pattern
+* Docker
+* Pydantic Validation
+* Load Testing with Locust
 
 ---
 
-## ⚡ High-Concurrency Architecture
+# 👨‍💻 Author
 
-### Async/Await Implementation
+**Benaniosam S**
 
-Every endpoint in this system is built with async/await patterns:
+Backend Developer
 
-```python
-# Example: Async Patient Endpoint
-@router.get("/patients/")
-async def get_patients(page: int = 1, limit: int = 10):
-    """Non-blocking patient retrieval"""
-    return await patient_service.get_all(page, limit)
-
-@router.post("/patients/")
-async def create_patient(patient: PatientSchema):
-    """Async patient creation with automatic validation"""
-    return await patient_service.create(patient)
-```
-
-### Concurrent Database Operations
-
-Leverage `asyncio.gather()` for parallel operations:
-
-```python
-async def get_patient_complete_record(patient_id: int):
-    """Fetch patient data concurrently"""
-    patient, appointments, records = await asyncio.gather(
-        patient_repo.get_by_id(patient_id),
-        appointment_repo.get_by_patient(patient_id),
-        medical_record_repo.get_by_patient(patient_id)
-    )
-    return {patient, appointments, records}
-```
-
-### Lifespan Management
-
-Proper async context management for connection pooling:
-
-```python
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    # Startup: Initialize connection pool
-    await db.connect()
-    yield
-    # Shutdown: Close connections gracefully
-    await db.disconnect()
-
-app = FastAPI(lifespan=lifespan)
-```
+GitHub: https://github.com/Benaniosam-hub
 
 ---
 
-## 📊 Locust Load Testing
-
-### What is Locust?
-
-Locust is an open-source load testing tool that simulates realistic user behavior to test your API's concurrency limits and performance under stress.
-
-### Running Load Tests
-
-```bash
-# Install Locust (if not in requirements.txt)
-pip install locust
-
-# Start Locust UI (open http://localhost:8089)
-locust -f locustfile.py --host=http://localhost:8000
-
-# Command-line mode (no UI)
-locust -f locustfile.py --host=http://localhost:8000 \
-    --users 50 --spawn-rate 5 --run-time 5m --headless
-```
-
-### Load Test Scenarios
-
-The included `locustfile.py` simulates realistic hospital API usage:
-
-```python
-class HospitalUser(HttpUser):
-    wait_time = between(0.1, 0.5)  # Simulated user think-time
-    
-    @task(3)  # 60% of requests
-    def get_patients(self):
-        self.client.get("/api/v1/patients/")
-    
-    @task(2)  # 40% of requests
-    def get_inpatient_rooms(self):
-        self.client.get("/api/v1/inpatient/rooms")
-    
-    @task(2)  # Doctor schedule checks
-    def get_doctor_schedule(self):
-        doctor_id = random.randint(1, 20)
-        self.client.get(f"/api/v1/appointments/doctor/{doctor_id}")
-    
-    @task(1)  # Health checks
-    def get_health(self):
-        self.client.get("/")
-```
-
-### Load Testing Best Practices
-
-1. **Ramp-up gradually**: Start with low user count, increase over time
-2. **Monitor system resources**: CPU, memory, database connections
-3. **Identify bottlenecks**: Use response time and error rate metrics
-4. **Test realistic scenarios**: Mix different endpoint requests
-5. **Set baselines**: Establish performance targets
-
-### Sample Load Test Results
-
-<img width="1920" height="1080" alt="lo 1" src="https://github.com/user-attachments/assets/42678087-9604-42de-880a-6882f2933ed8" />
-<img width="1920" height="1080" alt="lo 2" src="https://github.com/user-attachments/assets/a7e68e8d-5f43-4a46-aad2-17194751856a" />
-<img width="707" height="589" alt="lo 3" src="https://github.com/user-attachments/assets/7bb37eac-c37d-42da-8070-26b2ca7c96e8" />
-
----
-
-## 🔌 API Endpoints
-
-### Base URL
-```
-http://localhost:8000/api/v1
-```
-
-### Response Format
-
-**Success (2xx):**
-```json
-{
-    "status": "success",
-    "message": "Operation completed successfully",
-    "data": { /* response data */ }
-}
-```
-
-**Error (4xx, 5xx):**
-```json
-{
-    "status": "error",
-    "message": "Error description",
-    "error_code": "ERROR_CODE",
-    "details": {}
-}
-```
-
-### Authentication Endpoints (`/auth`)
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/auth/register` | Register new user |
-| POST | `/auth/login` | Login & get JWT token |
-| POST | `/auth/logout` | Logout |
-
-### Patient Endpoints (`/patients`)
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/patients` | Create patient |
-| GET | `/patients` | Get all patients (paginated) |
-| GET | `/patients/{id}` | Get patient by ID |
-| PUT | `/patients/{id}` | Update patient |
-| DELETE | `/patients/{id}` | Delete patient |
-
-### Inpatient Endpoints (`/inpatient`)
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/inpatient` | Create inpatient record |
-| GET | `/inpatient` | Get all inpatients (paginated) |
-| GET | `/inpatient/{id}` | Get inpatient by ID |
-| PUT | `/inpatient/{id}` | Update inpatient |
-| POST | `/inpatient/{id}/discharge` | Discharge patient |
-
-### Appointment Endpoints (`/appointments`)
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/appointments` | Schedule appointment |
-| GET | `/appointments` | Get all appointments (paginated) |
-| GET | `/appointments/{id}` | Get appointment by ID |
-| PUT | `/appointments/{id}` | Update appointment |
-| POST | `/appointments/{id}/cancel` | Cancel appointment |
-| POST | `/appointments/{id}/complete` | Mark as completed |
-
----
-
-## 🔐 Authentication
-
-The API uses **JWT (JSON Web Tokens)** for secure, stateless authentication.
-
-### Token Structure
-
-```
-Header:     {"alg": "HS256", "typ": "JWT"}
-Payload:    {"user_id": 1, "username": "johndoe", "role": "doctor", "exp": ..., "iat": ...}
-Signature:  HMACSHA256(base64(header) + "." + base64(payload), secret_key)
-```
-
-### How to Use
-
-1. **Register** at `/auth/register`
-2. **Login** at `/auth/login` to get access token
-3. **Include token** in all requests: `Authorization: Bearer {access_token}`
-4. **Token expires** in 3600 seconds (1 hour)
-
-### Protected Routes
-
-All endpoints except `/auth/register` and `/auth/login` require a valid JWT token.
-
----
-
-## 🚀 Running the Application
-
-### Development Mode
-
-```bash
-# Simple execution
-python -m uvicorn hospitalapp:app --reload --port 8000
-```
-
-### Production Mode - High Concurrency
-
-```bash
-# Multi-worker setup (4 workers for quad-core CPU)
-python -m uvicorn hospitalapp:app --host 0.0.0.0 --port 8000 --workers 4
-
-# Ultra-high concurrency with 8 workers
-python -m uvicorn hospitalapp:app --host 0.0.0.0 --port 8000 --workers 8 --loop uvloop
-
-# With custom timeouts for long-running async operations
-python -m uvicorn hospitalapp:app --host 0.0.0.0 --port 8000 --workers 4 --timeout-keep-alive 65
-```
-
-### Access Points
-
-| URL | Purpose |
-|-----|---------|
-| `http://localhost:8000/` | Health check / API status |
-| `http://localhost:8000/api/v1` | API Base URL |
-| `http://localhost:8000/docs` | **Swagger UI Documentation** 📊 |
-| `http://localhost:8000/redoc` | ReDoc Alternative Documentation |
-| `http://localhost:8000/openapi.json` | OpenAPI Schema (JSON) |
-
----
-
-## 📊 Swagger UI Interactive Testing
-
-### Accessing Swagger UI
-
-1. Start the application:
-   ```bash
-   python -m uvicorn hospitalapp:app --reload --port 8000
-   ```
-
-2. Open browser to:
-   ```
-   http://localhost:8000/docs
-   ```
-
-3. Features:
-   - 📋 All endpoints organized by tags
-   - 📝 Request/response schemas with examples
-   - 🔑 Built-in JWT authorization
-   - 🧪 **Try it out** button for live testing
-   - ⚡ Real-time request/response visualization
-4. Screenshots:
-   
-   <img width="1558" height="975" alt="swagger" src="https://github.com/user-attachments/assets/f8d5cfb6-7623-4b65-92f7-178f768c003c" />
-
-### Testing Authenticated Endpoints
-
-1. **Login First:**
-   - Expand `/auth/login` endpoint
-   - Click "Try it out"
-   - Enter credentials
-   - Execute and copy `access_token`
-
-2. **Authorize Session:**
-   - Click green "Authorize" button (top-right)
-   - Paste: `Bearer {your_token_here}`
-   - Click "Authorize"
-
-3. **Test Protected Endpoints:**
-   - All subsequent requests automatically include the token
-
----
-
-## 🎯 Performance Tuning for High Concurrency
-
-### 1. Database Connection Pool Optimization
-
-```python
-# config.py
-DATABASE_POOL_SIZE = 20        # Connections per worker
-DATABASE_MAX_OVERFLOW = 10     # Extra connections when needed
-```
-
-### 2. Uvicorn Worker Calculation
-
-```bash
-# Formula: (2 × CPU cores) + 1
-# Example: 4-core CPU = 9 workers
-# Recommended: 4-8 workers for most cases
-```
-
-### 3. Monitor Performance
-
-```bash
-# Real-time monitoring
-htop               # Linux/macOS
-Task Manager       # Windows
-
-# Track concurrent connections
-netstat -an | grep ESTABLISHED | wc -l
-```
-
-### 4. Load Balancing (Production)
-
-```bash
-# With Nginx for horizontal scaling
-# Multiple Uvicorn instances + Nginx reverse proxy
-# Enables transparent request distribution across workers
-```
-
----
-
-## 🔧 Troubleshooting
-
-### Database Connection Failed
-```
-Error: FATAL: database "hospital_db" does not exist
-Solution: createdb hospital_db
-```
-
-### Too Many Connections
-```
-Error: FATAL: too many connections for role "postgres"
-Solution: Increase max_connections in PostgreSQL or reduce pool_size
-```
-
-### Async Event Loop Errors
-```
-Error: RuntimeError: asyncio.run() cannot be called from a running event loop
-Solution: Ensure you're using await/async properly; don't use asyncio.run()
-```
-
-### Port Already in Use
-```
-Error: Address already in use
-Solution: uvicorn hospitalapp:app --port 8001
-```
-
-### Locust Connection Refused
-```
-Error: Failed to connect to http://localhost:8000
-Solution: Ensure API is running on correct host/port before starting Locust
-```
-
----
-
-## 📊 Performance Metrics to Monitor
-
-When running under load with Locust, track these key metrics:
-
-- **Response Time** - Target: <200ms for 95th percentile
-- **Throughput** - Requests per second handled
-- **Concurrent Users** - Maximum simultaneous connections
-- **Error Rate** - Should be <1% under normal load
-- **Database Connections** - Monitor pool utilization
-- **CPU Usage** - Should scale with user count
-- **Memory Usage** - Watch for memory leaks in async operations
-
----
-
-## 📖 Development Guidelines
-
-### Architecture Layers
-
-- **Routes**: FastAPI endpoint definitions (async)
-- **Controllers**: HTTP request/response handling
-- **Services**: Business logic (async-ready)
-- **Repositories**: Database CRUD with async SQLAlchemy
-- **Schemas**: Pydantic models for validation
-- **Database**: Connection pool and ORM models
-
-### Async Best Practices
-
-```python
-# ✅ Good: Use async/await consistently
-async def fetch_patients():
-    return await patient_repo.get_all()
-
-# ❌ Bad: Blocking operations in async functions
-def fetch_patients_blocking():
-    return patient_repo.get_all()  # No await!
-
-# ✅ Good: Parallel operations with gather
-results = await asyncio.gather(
-    op1(),
-    op2(),
-    op3()
-)
-
-# ✅ Good: Use async context managers for resources
-async with db_session() as session:
-    data = await session.execute(query)
-```
-
----
-
-## 🤝 Contributing
-
-Contributions welcome! Please:
-
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit changes (`git commit -m 'Add AmazingFeature'`)
-4. Push to branch (`git push origin feature/AmazingFeature`)
-5. Open Pull Request
-
-### Code Standards for Async Code
-
-- Always use `async def` for endpoint handlers
-- Always `await` async operations
-- Use type hints for async functions
-- Document async operations in docstrings
-- Test with Locust before merging
-
----
-
-## 📄 License
-
-This project is open source and available under the MIT License.
-
----
-
-## 📞 Support & Contact
-
-For questions or issues: [Report an issue](https://github.com/Benaniosam-hub/Project_Hospital_Management_System/issues)
-
----
-
-## ✨ Key Upgrades in This Version
-
-### From Traditional to High-Concurrency
-
-| Aspect | Before | Now |
-|--------|--------|-----|
-| **Framework** | Flask (synchronous) | FastAPI (async) |
-| **Performance** | 50 req/sec | 150+ req/sec |
-| **Concurrent Users** | ~50 | 500+ |
-| **Response Time** | 500ms avg | 120ms avg |
-| **Testing** | Manual | Automated with Locust |
-| **Database Ops** | Blocking | Non-blocking async |
-| **Scalability** | Vertical only | Horizontal ready |
-
-### Production Readiness
-
-✅ Async/await throughout  
-✅ Connection pooling  
-✅ Load testing included  
-✅ Performance metrics ready  
-✅ Multi-worker deployment  
-✅ JWT authentication  
-✅ Comprehensive error handling  
-✅ Swagger UI documentation  
-
----
-
-**Built with ❤️ for high-performance healthcare systems**
+⭐ If you found this project useful, consider giving it a **Star**.
