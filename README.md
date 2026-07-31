@@ -1,8 +1,22 @@
 # 🏥 Hospital Management System - High-Concurrency Edition with Async/Await & Load Testing
 
-> **Enterprise-Grade Hospital Management API** - Built with FastAPI's async architecture for ultra-high concurrency, tested with Locust for performance validation, and interactive Swagger UI for seamless API exploration
+> **Enterprise-Grade Hospital Management API** - Built with FastAPI's async architecture for ultra-high concurrency, tested with Locust for performance validation, and interactive Swagger UI for seeding development and QA workflows.
 
-A production-ready, asynchronous RESTful API for managing comprehensive hospital operations including patient management, inpatient services, appointments, and JWT authentication. Engineered for **high-concurrency environments** with async/await patterns and comprehensive load testing capabilities.
+A production-ready, asynchronous RESTful API for managing comprehensive hospital operations including patient management, inpatient services, appointments, and JWT authentication. Engineered for modern, cloud-ready deployments and designed as a learning playground to implement enterprise-grade concepts.
+
+---
+
+## ℹ️ About this Project
+
+This Hospital Management System (HMS) is a learning and experimentation project where I am applying and validating several enterprise-level concepts and best practices:
+
+- High concurrency handling — end-to-end async/await architecture, connection pooling, and load-tested with Locust.
+- Enterprise security practices — JWT-based authentication, role-based authorization, environment-driven secrets management, and secure error handling.
+- Strict schema validation — Pydantic models and request/response validation to ensure data integrity across services.
+- Database optimization — async SQLAlchemy usage, connection pooling, and schema/indexing patterns designed for performance at scale.
+- Cloud-native architecture — container-friendly configuration, multi-worker ASGI deployment patterns, and readiness for horizontal scaling behind a load balancer.
+
+This README keeps the original sample screenshots and load test artifacts intact — they demonstrate live runs and UI interactions used during development and testing.
 
 ---
 
@@ -138,7 +152,7 @@ Project_Hospital_Management_System/
 │
 ├── routes/                       # API routes layer (async endpoints)
 │   ├── auth_routes.py           # Authentication endpoints
-│   ├── patient_routes.py        # Patient management endpoints
+│   ��── patient_routes.py        # Patient management endpoints
 │   ├── inpatient_routes.py      # Inpatient service endpoints
 │   └── appointment_routes.py    # Appointment management endpoints
 │
